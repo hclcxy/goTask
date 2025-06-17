@@ -10,4 +10,5 @@ require (
 	golang.org/x/text v0.26.0 // indirect
 	gorm.io/driver/mysql v1.6.0 // indirect
 	gorm.io/gorm v1.30.0 // indirect
+
 )
