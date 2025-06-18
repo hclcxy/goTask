@@ -112,9 +112,13 @@ go test ./...
 欢迎贡献！请遵循以下流程：
 
 联系方式
-如有问题请联系：
+如有任何问题，请联系：
+
+作者: insthu
 
 邮箱: insthu@163.com
+
+项目链接: https://github.com/hclcxy/goTask/tree/main/go-task4
 
 
 
