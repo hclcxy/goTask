@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+      <style>
+        body {
+          padding: 30px 20%;
+        }
+        .apipost-logo {
+          width: 121px;
+          display: flex;
+          align-items: center;
+          height: 35px;
+        }
+        .apipost-report-wrap .apipost-report-wrap-tpl .report-info {
+          padding-top: 30px;
+        }
+  
+        .apipost-report-wrap .apipost-report-wrap-tpl .report-info .report-item {
+          padding-bottom: 10px;
+          color: #666666;
+          font-weight: 400;
+          font-size: 14px;
+        }
+  
+        .apipost-report-wrap-tpl .report-info .report-item .label {
+          display: inline-block;
+          width: 135px;
+          text-align: right;
+        }
+  
+        .apipost-report-wrap-tpl .report-info .report-item .value {
+        }
+
+        .apipost-report-wrap-tpl .report-info .report-item .value a {
+          color: #ff6907;
+        }
+
+        .apipost-report-wrap .dashed {
+          height: 1px;
+          width: 100%;
+          border: 1px dashed #d8d8d8;
+        }
+  
+        .report-title {
+          padding-top: 15px;
+          display: flex;
+          align-items: center;
+        }
+        .report-title img {
+          width: 15px;
+          height: 17px;
+        }
+        .report-title .title {
+          padding-left: 10px;
+          font-weight: 400;
+          font-size: 18px;
+          color: #fa7600;
+        }
+        .report-table {
+          margin-top: 30px;
+        }
+        .report-table table {
+          width: 100%;
+          border: 1px solid #e9e9e9;
+          border-collapse: collapse;
+        }
+  
+        .report-table table th {
+          font-weight: 400;
+          font-size: 12px;
+          color: #666666;
+          background: #f4f4f4;
+          height: 32px;
+          border: 1px solid #e9e9e9;
+          text-align: center;
+        }
+        .report-table table td {
+          background: #ffffff;
+          height: 32px;
+          color: #666666;
+          font-weight: 400;
+          font-size: 12px;
+          border: 1px solid #e9e9e9;
+          text-align: center;
+        }
+  
+        .report-info-list {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          padding-top: 15px;
+        }
+  
+        .report-info-list .report-info-item {
+          display: inline-flex;
+          align-items: center;
+          width: 25%;
+          padding-bottom: 15px;
+        }
+  
+        .report-info-list .report-info-item img {
+          width: 13px;
+          height: 13px;
+        }
+        .report-info-list .report-info-item span {
+          padding-left: 10px;
+          font-weight: 400;
+          font-size: 12px;
+          color: #666666;
+        }
+        .test-detail {
+          padding-top: 15px;
+          padding-bottom: 15px;
+        }
+        .test-detail .toggle-arrow {
+          display: flex;
+          align-items: center;
+        }
+        .test-detail .icon-bg {
+          display: inline-flex;
+          justify-content: center;
+          align-items: center;
+          width: 16px;
+          height: 16px;
+          background: #f2f2f2;
+          border-radius: 3px;
+        }
+        .test-detail img {
+          width: 8px;
+          height: 4px;
+        }
+        .test-detail span.title {
+          font-weight: 400;
+          font-size: 16px;
+          padding-left: 10px;
+          color: #2b2b2b;
+        }
+  
+        .test-detail .test-event-list {
+          width: 100%;
+        }
+        .test-detail .test-event-list .test-event-item {
+        }
+        .test-detail .test-event-list .test-event-item .loop {
+          padding: 10px 0;
+          font-weight: 400;
+          font-size: 12px;
+          color: #666666;
+        }
+        .test-detail .test-event-list .test-event-item .panel {
+          display: flex;
+          align-items: center;
+          height: 36px;
+          font-weight: 400;
+          font-size: 12px;
+          background: #f8f8f8;
+          border-radius: 5px;
+        }
+        .test-event-list .test-event-item .panel .status {
+          width: 16px;
+          height: 16px;
+          margin-left: 25px;
+          margin-right: 30px;
+        }
+        .test-event-list .test-event-item .panel .index {
+          padding-right: 30px;
+          color: #666666;
+        }
+  
+        .test-event-list .test-event-item .panel .method {
+          padding-right: 30px;
+          color: #26cea4;
+        }
+        .test-event-list .test-event-item .panel .name {
+          padding-right: 30px;
+          color: #666666;
+        }
+        .test-event-list .test-event-item .panel .link a {
+          text-decoration: none;
+        }
+  
+        .test-event-list .test-event-item .item-info {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          padding: 10px;
+          font-weight: 400;
+          font-size: 12px;
+          color: #666666;
+        }
+        .test-event-list .test-event-item .item-info span {
+          display: inline-block;
+          width: 25%;
+        }
+  
+        .test-event-list .test-event-item .assert-info {
+          display: flex;
+          width: 100%;
+          font-weight: 400;
+          font-size: 12px;
+        }
+        .test-event-list .test-event-item .assert-info .assert-label {
+          min-width: 60px;
+        }
+        .test-event-item .assert-info .response-panel {
+          width: 100%;
+        }
+        .test-event-item .assert-info .response-panel img {
+          width: 12px;
+          height: 12px;
+          margin: 0 10px;
+        }
+        .test-event-item .assert-info .response-panel .success,
+        .test-event-item .assert-info .response-panel .error {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: 34px;
+        }
+        .test-event-item .assert-info .response-panel .success {
+          background: #f1faf3;
+          color: #2ba58f;
+        }
+  
+        .test-event-item .assert-info .response-panel .error {
+          background: #ffedee;
+          color: #ff4c4c;
+        }
+        .show {
+          display: block;
+        }
+        .hide {
+          display: none;
+        }
+        .chart-wrap {
+          display: flex;
+          align-items: center;
+          padding-top: 15px;
+        }
+  
+        .chart-wrap .api {
+          display: flex;
+          align-items: center;
+          width: 50%;
+        }
+        .chart-wrap .api .api-des {
+          display: flex;
+          flex-direction: column;
+          padding-left: 50px;
+        }
+  
+        .chart-wrap .api .api-des .api-title {
+          padding-bottom: 15px;
+          font-weight: 600;
+          font-size: 16px;
+          color: #666666;
+        }
+  
+        .chart-wrap .api .api-des .api-label {
+          padding-bottom: 10px;
+          font-weight: 400;
+          font-size: 12px;
+          color: #666666;
+        }
+        #api-pie,
+        #assert-pie {
+          width: 80px;
+          height: 80px;
+        }
+      </style>
+      <script src="https://img.cdn.apipost.cn/cdn/test-report/js/template-web.js"></script>
+      <script src="https://img.cdn.apipost.cn/cdn/test-report/js/echarts.min.js"></script>
+    </head>
+    <body>
+      <div id="app">
+      <img class="apipost-logo" src="https://img.cdn.apipost.cn/new_www/index_img/apipost-logo_or.svg" />
+        <div class="apipost-report-wrap"></div>
+      </div>
+  
+      <script type="text/html" id="tpl">
+        <div class="apipost-report-wrap-tpl">
+          <h1>{{value.report_name}}</h1>
+          <div class="report-info">
+            <div class="report-item">
+              <span class="label">测试用例/测试套件：</span>
+              <span class="value">{{value.report_name}}</span>
+            </div>
+            <div class="report-item">
+              <span class="label">测试时间：</span>
+              <span class="value">{{value.start_time}}</span>
+            </div>
+            <div class="report-item">
+              <span class="label">测试工具：</span>
+              <span class="value"><a href="https://www.apipost.cn/download.html">apipost客户端</a></span>
+            </div>
+          </div>
+          <div class="dashed"></div>
+  
+          <div class="report-title">
+            <img src="https://img.cdn.apipost.cn/cdn/test-report/img/doc.png" alt="" />
+            <span class="title">测试结果</span>
+          </div>
+          <div class="chart-wrap">
+            <div class="api">
+              <div id="api-pie"></div>
+              <div class="api-des">
+                <span class="api-title">接口</span>
+                <span class="api-label"
+                  >接口通过率：{{formatRate({ passed: value?.http?.passed, failure:
+                  value?.http?.failure }, value?.http?.passed)}}</span
+                >
+                <span class="api-label"
+                  >接口失败率：{{formatRate({ passed: value?.http?.passed, failure:
+                  value?.http?.failure }, value?.http?.failure)}}</span
+                >
+              </div>
+            </div>
+            <div class="api">
+              <div id="assert-pie"></div>
+              <div class="api-des">
+                <span class="api-title">断言</span>
+                <span class="api-label"
+                  >断言通过率：{{formatRate({ passed: value?.assert?.passed, failure:
+                  value?.assert?.failure }, value?.assert?.passed)}}</span
+                >
+                <span class="api-label"
+                  >断言失败率：{{formatRate({ passed: value?.assert?.passed, failure:
+                  value?.assert?.failure }, value?.assert?.failure)}}</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="report-table">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>请求总数</th>
+                  <th>通过</th>
+                  <th>失败</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>接口</td>
+                  <td>{{value.http.failure + value.http.passed}}</td>
+                  <td>{{value.http.passed}}</td>
+                  <td>{{value.http.failure}}</td>
+                </tr>
+                <tr>
+                  <td>断言</td>
+                  <td>{{value.assert.failure + value.assert.passed}}</td>
+                  <td>{{value.assert.passed}}</td>
+                  <td>{{value.assert.failure}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+  
+          <div class="report-info-list">
+            <div class="report-info-item">
+              <span>开始时间 : {{value.start_time}}</span>
+            </div>
+            <div class="report-info-item">
+              <span>结束时间 : {{value.end_time}}</span>
+            </div>
+            <div class="report-info-item">
+              <span>总耗时 : {{value.long_time}}</span>
+            </div>
+            <div class="report-info-item">
+              <span>总响应时间 : {{value.total_response_time}}ms</span>
+            </div>
+            <div class="report-info-item">
+              <span>平均响应时间 : {{value.average_response_time}}ms</span>
+            </div>
+            <div class="report-info-item">
+              <span>总响应数据大小 : {{value.total_received_data}}kb</span>
+            </div>
+            <div class="report-info-item">
+              <span>未测接口 : {{value.ignore_count}}</span>
+            </div>
+          </div>
+  
+          <div class="dashed"></div>
+          {{if value.type === 'single'}}
+          <div class="report-title">
+            <img src="https://img.cdn.apipost.cn/cdn/test-report/img/doc.png" alt="" />
+            <span class="title">测试情况</span>
+          </div>
+  
+          <div class="action-wrap">
+            <div class="test-detail failed">
+              <div class="toggle-arrow">
+                <span class="icon-bg">
+                  <img src="https://img.cdn.apipost.cn/cdn/test-report/img/arrow.png" class="arrow" alt="" />
+                </span>
+                <span class="title">失败情况</span>
+              </div>
+              <div class="test-event-list show">
+                {{each value.logList.filter(item => item.http_error === 1 || item.assert_error === 1) item
+                key}}
+                <div data-text="{{key}}" id="{{key}}" class="test-event-item">
+                  <div class="panel">
+                    <img class="status" src="https://img.cdn.apipost.cn/cdn/test-report/img/error.png" alt="" />
+                    <div class="index">{{key + 1}}</div>
+                    <div class="method">{{item?.request?.method}}</div>
+                    <span class="name">{{item?.request?.name}}</span>
+                    <div class="link">
+                      <a href="{{item?.request?.url}}">{{item?.request?.url}}</a>
+                    </div>
+                  </div>
+                  <div class="item-info">
+                    <span>请求状况：{{(item?.http_error === 1) ? '失败' : '成功'}}</span>
+                    <span>状态码：{{item?.response?.data?.response?.code}}</span>
+                    <span>响应时间：{{item?.response?.data?.response?.responseTime}}ms</span>
+                    <span>响应数据大小：{{item?.response?.data?.response?.responseSize}}kb</span>
+                  </div>
+                  {{if item?.assert && item?.assert.length > 0}}
+                  <div class="assert-info">
+                    <span class="assert-label">断言:</span>
+                    <div class="response-panel">
+                      {{each item?.assert assert cKey}} {{if assert.status === 'error'}}
+                      <div class="error">
+                        <img src="https://img.cdn.apipost.cn/cdn/test-report/img/error.png" alt="" />
+                        <span>{{assert?.expect}}</span>
+                      </div>
+                      {{/if}} {{if assert.status !== 'error'}}
+                      <div class="success">
+                        <img src="https://img.cdn.apipost.cn/cdn/test-report/img/success.png" alt="" />
+                        <span>{{assert?.expect}}</span>
+                      </div>
+                      {{/if}} {{/each}}
+                    </div>
+                  </div>
+                  {{/if}}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+            <div class="dashed"></div>
+            <div class="test-detail success">
+              <div class="toggle-arrow">
+                <span class="icon-bg">
+                  <img src="https://img.cdn.apipost.cn/cdn/test-report/img/arrow.png" alt="" />
+                </span>
+                <span class="title">测试详情</span>
+              </div>
+              <div class="test-event-list show">
+                {{each value.logList item key}}
+                <div data-text="{{key}}" id="{{key}}" class="test-event-item">
+                  <div class="panel">
+                    {{if item.http_error === -1 && item.assert_error === -1}}
+                    <img class="status" src="https://img.cdn.apipost.cn/cdn/test-report/img/success.png" alt="" />
+                    {{/if}} {{if item.http_error === 1 || item.assert_error === 1}}
+                    <img class="status" src="https://img.cdn.apipost.cn/cdn/test-report/img/error.png" alt="" />
+                    {{/if}}
+  
+                    <div class="index">{{key + 1}}</div>
+                    <div class="method">{{item?.request?.method}}</div>
+                    <span class="name">{{item?.request?.name}}</span>
+                    <div class="link">
+                      <a href="{{item?.request?.url}}">{{item?.request?.url}}</a>
+                    </div>
+                  </div>
+                  <div class="item-info">
+                    <span>请求状况：{{(item?.http_error === 1) ? '失败' : '成功'}}</span>
+                    <span>状态码：{{item?.response?.data?.response?.code}}</span>
+                    <span>响应时间：{{item?.response?.data?.response?.responseTime}}ms</span>
+                    <span>响应数据大小：{{item?.response?.data?.response?.responseSize}}kb</span>
+                  </div>
+                  {{if item?.assert && item?.assert.length > 0}}
+                  <div class="assert-info">
+                    <span class="assert-label">断言:</span>
+                    <div class="response-panel">
+                      {{each item?.assert assert cKey}} 
+                      {{if assert.status === 'error'}}
+                      <div class="error">
+                        <img src="https://img.cdn.apipost.cn/cdn/test-report/img/error.png" alt="" />
+                        <span>{{assert?.expect}}</span>
+                      </div>
+                      {{/if}} 
+                      {{if assert.status !== 'error'}}
+                      <div class="success">
+                        <img src="https://img.cdn.apipost.cn/cdn/test-report/img/success.png" alt="" />
+                        <span>{{assert?.expect}}</span>
+                      </div>
+                      {{/if}} {{/each}}
+                    </div>
+                  </div>
+                  {{/if}}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+          {{/if}}
+          {{if value.type === 'combined'}}
+          {{each value.children child childKey}}
+            <div data-text="{{childKey}}" id="{{childKey}}">
+            <div class="report-title">
+            <img src="https://img.cdn.apipost.cn/cdn/test-report/img/doc.png" alt="" />
+            <span class="title">{{child?.report_name}}_测试情况</span>
+          </div>
+  
+          <div class="action-wrap">
+            <div class="test-detail failed">
+              <div class="toggle-arrow">
+                <span class="icon-bg">
+                  <img src="https://img.cdn.apipost.cn/cdn/test-report/img/arrow.png" class="arrow" alt="" />
+                </span>
+                <span class="title">失败情况</span>
+              </div>
+              <div class="test-event-list show">
+                {{each value.logList.filter(item => (item.http_error === 1 || item.assert_error === 1) && item.test_id === child.test_id) item
+                key}}
+                <div data-text="{{key}}" id="{{key}}" class="test-event-item">
+                  <div class="panel">
+                    <img class="status" src="https://img.cdn.apipost.cn/cdn/test-report/img/error.png" alt="" />
+                    <div class="index">{{key + 1}}</div>
+                    <div class="method">{{item?.request?.method}}</div>
+                    <span class="name">{{item?.request?.name}}</span>
+                    <div class="link">
+                      <a href="{{item?.request?.url}}">{{item?.request?.url}}</a>
+                    </div>
+                  </div>
+                  <div class="item-info">
+                    <span>请求状况：{{(item?.http_error === 1) ? '失败' : '成功'}}</span>
+                    <span>状态码：{{item?.response?.data?.response?.code}}</span>
+                    <span>响应时间：{{item?.response?.data?.response?.responseTime}}ms</span>
+                    <span>响应数据大小：{{item?.response?.data?.response?.responseSize}}kb</span>
+                  </div>
+                  {{if item?.assert && item?.assert.length > 0}}
+                  <div class="assert-info">
+                    <span class="assert-label">断言:</span>
+                    <div class="response-panel">
+                      {{each item?.assert assert cKey}} {{if assert.status === 'error'}}
+                      <div class="error">
+                        <img src="https://img.cdn.apipost.cn/cdn/test-report/img/error.png" alt="" />
+                        <span>{{assert?.expect}}</span>
+                      </div>
+                      {{/if}} {{if assert.status !== 'error'}}
+                      <div class="success">
+                        <img src="https://img.cdn.apipost.cn/cdn/test-report/img/success.png" alt="" />
+                        <span>{{assert?.expect}}</span>
+                      </div>
+                      {{/if}} {{/each}}
+                    </div>
+                  </div>
+                  {{/if}}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+            <div class="dashed"></div>
+            <div class="test-detail success">
+              <div class="toggle-arrow">
+                <span class="icon-bg">
+                  <img src="https://img.cdn.apipost.cn/cdn/test-report/img/arrow.png" alt="" />
+                </span>
+                <span class="title">测试详情</span>
+              </div>
+              <div class="test-event-list show">
+                {{each value.logList.filter(item => item.test_id === child.test_id) item key}}
+                <div data-text="{{key}}" id="{{key}}" class="test-event-item">
+                  <div class="panel">
+                    {{if item.http_error === -1 && item.assert_error === -1}}
+                    <img class="status" src="https://img.cdn.apipost.cn/cdn/test-report/img/success.png" alt="" />
+                    {{/if}} {{if item.http_error === 1 || item.assert_error === 1}}
+                    <img class="status" src="https://img.cdn.apipost.cn/cdn/test-report/img/error.png" alt="" />
+                    {{/if}}
+  
+                    <div class="index">{{key + 1}}</div>
+                    <div class="method">{{item?.request?.method}}</div>
+                    <span class="name">{{item?.request?.name}}</span>
+                    <div class="link">
+                      <a href="{{item?.request?.url}}">{{item?.request?.url}}</a>
+                    </div>
+                  </div>
+                  <div class="item-info">
+                    <span>请求状况：{{(item?.http_error === 1) ? '失败' : '成功'}}</span>
+                    <span>状态码：{{item?.response?.data?.response?.code}}</span>
+                    <span>响应时间：{{item?.response?.data?.response?.responseTime}}ms</span>
+                    <span>响应数据大小：{{item?.response?.data?.response?.responseSize}}kb</span>
+                  </div>
+                  {{if item?.assert && item?.assert.length > 0}}
+                  <div class="assert-info">
+                    <span class="assert-label">断言:</span>
+                    <div class="response-panel">
+                      {{each item?.assert assert cKey}} 
+                      {{if assert.status === 'error'}}
+                      <div class="error">
+                        <img src="https://img.cdn.apipost.cn/cdn/test-report/img/error.png" alt="" />
+                        <span>{{assert?.expect}}</span>
+                      </div>
+                      {{/if}} 
+                      {{if assert.status !== 'error'}}
+                      <div class="success">
+                        <img src="https://img.cdn.apipost.cn/cdn/test-report/img/success.png" alt="" />
+                        <span>{{assert?.expect}}</span>
+                      </div>
+                      {{/if}} {{/each}}
+                    </div>
+                  </div>
+                  {{/if}}
+                </div>
+                {{/each}}
+              </div>
+            </div>
+          </div>
+            </div>
+          {{/each}}
+          {{/if}}
+        </div>
+      </script>
+  
+      <script>
+        template.defaults.imports.formatRate = function (info, per) {
+          if (
+            typeof info.passed !== 'number' ||
+            typeof info.failure !== 'number' ||
+            info?.passed + info?.failure === 0
+          ) {
+            return '0%';
+          }
+          if (typeof per === 'number') {
+            return ((per / (info?.passed + info?.failure)) * 100).toFixed(2) + '%';
+          }
+          return '-';
+        };
+  
+        const data = {"combined_id":"0","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","report_name":"新建测试用例测试报告","env_id":"-1","env_name":"默认环境","env_pre_url":"","env_pre_urls":null,"user":{"uuid":"-1","nick_name":"匿名"},"total_count":7,"total_effective_count":7,"ignore_count":0,"total_received_data":1.61,"total_response_time":84,"average_response_time":12,"http_errors":[],"assert_errors":[],"ignore_errors":[],"http":{"passed":7,"passed_per":1,"failure":0,"failure_per":0},"assert":{"passed":0,"passed_per":0,"failure":0,"failure_per":0},"start_time":"2025-06-18 16:01:18","end_time":"2025-06-18 16:01:18","long_time":"0.17 秒","children":[],"type":"single","test_id":"3ddcc015-522d-4097-917e-e16748b49f45","event_status":{"8c69b142-af2c-4623-ba7a-8ea18f1877a0":"passed","9dabf07f-374b-41f8-b898-082839096d0d":"passed","b87bf20e-7a66-43da-bb59-e99d5905acf4":"passed","05969941-f2a5-4652-ba20-92c3a294809c":"passed","04694175-b461-4d63-bdab-717dd7f80352":"passed","ffb04a62-13dc-4280-9147-8c0d87b0a64a":"passed","2ef74a14-a10b-499d-88e6-22eb3da17deb":"passed"},"test_events":[{"event_id":"8c69b142-af2c-4623-ba7a-8ea18f1877a0","parent_event_id":"0","data":{"parent_id":"0","target_id":"71dd7ce8-7c0c-4890-b71a-b59fe6f47405","name":"登录","method":"POST","url":"http://127.0.0.1:9000/auth/login","request":{"url":"http://127.0.0.1:9000/auth/login","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg2MjUsInVzZXJfaWQiOjF9.NnvARrL0B_yShWsgRL_MEC5mosN3MUBtOGD0XxsGuzo"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"username\": \"testuser\",\r\n    \"password\": \"testpassword\"\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"enabled":1,"project_id":"de69af05-91f3-4464-a6fa-f6787f3f4a59","sort":1,"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","type":"api","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","runtime_status":"passed"},{"event_id":"9dabf07f-374b-41f8-b898-082839096d0d","parent_event_id":"0","data":{"parent_id":"0","target_id":"94d87111-34b0-4f2c-b3f5-0ef8a7382272","name":"更新文章","method":"PUT","url":"http://127.0.0.1:9000/posts/2","request":{"url":"http://127.0.0.1:9000/posts/2","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"title\": \"Updated Post1\",\r\n    \"content\": \"This post has been updated\"\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"enabled":1,"project_id":"de69af05-91f3-4464-a6fa-f6787f3f4a59","sort":2,"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","type":"api","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","runtime_status":"passed"},{"event_id":"b87bf20e-7a66-43da-bb59-e99d5905acf4","parent_event_id":"0","data":{"parent_id":"0","target_id":"c5d67173-2d26-4712-9bcb-f8a702ac914b","name":"删除文章","method":"DELETE","url":"http://127.0.0.1:9000/posts/2","request":{"url":"http://127.0.0.1:9000/posts/2","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"enabled":1,"project_id":"de69af05-91f3-4464-a6fa-f6787f3f4a59","sort":3,"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","type":"api","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","runtime_status":"passed"},{"event_id":"05969941-f2a5-4652-ba20-92c3a294809c","parent_event_id":"0","data":{"parent_id":"0","target_id":"56ee0b44-01d8-41a8-9ec4-ff9b759b5266","name":"获取文章评论","method":"GET","url":"http://127.0.0.1:9000/comments/post/1","request":{"url":"http://127.0.0.1:9000/comments/post/1","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"enabled":1,"project_id":"de69af05-91f3-4464-a6fa-f6787f3f4a59","sort":4,"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","type":"api","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","runtime_status":"passed"},{"event_id":"04694175-b461-4d63-bdab-717dd7f80352","parent_event_id":"0","data":{"parent_id":"0","target_id":"e6a9dcce-2f72-464d-82b6-e76066983288","name":"创建评论","method":"POST","url":"http://127.0.0.1:9000/comments","request":{"url":"http://127.0.0.1:9000/comments","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"content\": \"Nice post!\",\r\n    \"post_id\": 2\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"enabled":1,"project_id":"de69af05-91f3-4464-a6fa-f6787f3f4a59","sort":5,"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","type":"api","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","runtime_status":"passed"},{"event_id":"ffb04a62-13dc-4280-9147-8c0d87b0a64a","parent_event_id":"0","data":{"parent_id":"0","target_id":"d1337a3c-8f4c-4788-9599-4c2d6b5c8b04","name":"删除评论","method":"DELETE","url":"http://127.0.0.1:9000/comments/2","request":{"url":"http://127.0.0.1:9000/comments/2","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"content\": \"Nice post!\",\r\n    \"post_id\": 2\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"enabled":1,"project_id":"de69af05-91f3-4464-a6fa-f6787f3f4a59","sort":6,"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","type":"api","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","runtime_status":"passed"},{"event_id":"2ef74a14-a10b-499d-88e6-22eb3da17deb","parent_event_id":"0","data":{"parent_id":"0","target_id":"119b0d1b-91d4-41ec-962b-8bdbe23150e3","name":"注册","method":"POST","url":"http://127.0.0.1:9000/auth/register","request":{"url":"http://127.0.0.1:9000/auth/register","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg2MjUsInVzZXJfaWQiOjF9.NnvARrL0B_yShWsgRL_MEC5mosN3MUBtOGD0XxsGuzo"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"username\": \"testuser1\",\r\n    \"password\": \"testpassword1\",\r\n    \"email\": \"test1@example.com\"\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"enabled":1,"project_id":"de69af05-91f3-4464-a6fa-f6787f3f4a59","sort":7,"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","type":"api","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","runtime_status":"passed"}],"project_id":"de69af05-91f3-4464-a6fa-f6787f3f4a59","logList":[{"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","parent_id":"0","event_id":"8c69b142-af2c-4623-ba7a-8ea18f1877a0","iteration_id":"24cf528e-dfc5-4233-9da6-190007b3d4f8","type":"api","target_id":"71dd7ce8-7c0c-4890-b71a-b59fe6f47405","request":{"parent_id":"0","target_id":"71dd7ce8-7c0c-4890-b71a-b59fe6f47405","name":"登录","method":"POST","url":"http://127.0.0.1:9000/auth/login","request":{"url":"http://127.0.0.1:9000/auth/login","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg2MjUsInVzZXJfaWQiOjF9.NnvARrL0B_yShWsgRL_MEC5mosN3MUBtOGD0XxsGuzo"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"username\": \"testuser\",\r\n    \"password\": \"testpassword\"\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"response":{"status":"success","message":"success","data":{"request":{"url":"http://127.0.0.1:9000/auth/login","uri":{"slashes":true,"protocol":"http:","hash":"","query":"","pathname":"/auth/login","auth":"","host":"127.0.0.1:9000","port":"9000","hostname":"127.0.0.1","password":"","username":"","origin":"http://127.0.0.1:9000","href":"http://127.0.0.1:9000/auth/login"},"method":"POST","timeout":0,"contentType":"application/json","header":[{"key":"User-Agent","value":"PostmanRuntime-ApipostRuntime/1.1.0"},{"key":"Cache-Control","value":"no-cache"},{"key":"content-type","value":"application/json"},{"key":"Authorization","value":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg2MjUsInVzZXJfaWQiOjF9.NnvARrL0B_yShWsgRL_MEC5mosN3MUBtOGD0XxsGuzo"},{"key":"Accept-Encoding","value":"gzip, deflate, br"},{"key":"Content-Length","value":65}],"proxy":null,"request_headers":{"User-Agent":"PostmanRuntime-ApipostRuntime/1.1.0","Cache-Control":"no-cache","content-type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg2MjUsInVzZXJfaWQiOjF9.NnvARrL0B_yShWsgRL_MEC5mosN3MUBtOGD0XxsGuzo","Accept-Encoding":"gzip, deflate, br","Content-Length":65},"request_bodys":"{\r\n    \"username\": \"testuser\",\r\n    \"password\": \"testpassword\"\r\n}","body":{"mode":"raw","raw":"{\r\n    \"username\": \"testuser\",\r\n    \"password\": \"testpassword\"\r\n}","options":{"raw":{"language":"json"}}}},"response":{"target_id":"71dd7ce8-7c0c-4890-b71a-b59fe6f47405","responseTime":56,"responseSize":0.28,"resposneAt":"16:01:18","netWork":{"agent":"Desktop-Agent","address":{"local":{"address":"127.0.0.1","port":64540},"remote":{"address":"127.0.0.1","family":"IPv4","port":9000}}},"status":"OK","code":200,"timingPhases":{"wait":0.6389999995008111,"dns":0,"tcp":0.4018000001087785,"firstByte":54.479600000195205,"download":0.3214999996125698,"total":55.841899999417365},"headers":{"Content-Type":"application/json; charset=utf-8","Date":"Wed, 18 Jun 2025 08:01:18 GMT","Content-Length":"288","Connection":"close"},"fitForShow":"Monaco","resMime":{"ext":"json","mime":"application/json"},"stream":{"type":"Buffer","data":[120,156,149,142,93,83,130,64,24,133,255,203,123,27,50,11,10,202,94,133,20,177,140,98,154,144,211,141,179,194,91,173,124,72,176,154,173,227,127,111,107,250,3,221,158,243,156,121,206,5,228,161,196,6,40,224,87,252,190,123,200,197,66,196,44,85,204,74,4,235,89,179,114,242,128,185,172,108,55,89,16,123,166,134,42,140,124,177,216,223,15,147,181,175,230,123,255,51,81,111,26,204,212,203,38,126,229,207,75,221,133,158,25,158,182,117,80,142,207,162,27,39,31,209,124,180,156,225,19,73,163,199,80,68,59,174,238,166,199,41,159,173,50,89,10,149,130,1,199,30,59,160,23,16,5,80,203,128,188,67,46,177,216,114,169,127,217,196,118,6,196,29,88,147,181,53,162,182,67,137,107,122,67,231,134,76,40,33,63,219,182,248,7,172,69,13,175,81,163,18,123,249,235,53,0,107,46,170,191,232,22,207,188,110,43,52,243,67,13,215,235,55,159,255,88,246]},"filename":"response_71dd7ce8-7c0c-4890-b71a-b59fe6f47405.json"}}},"http_error":-1,"assert":[],"datetime":"2025-06-18 16:01:18","assert_error":-1},{"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","parent_id":"0","event_id":"9dabf07f-374b-41f8-b898-082839096d0d","iteration_id":"958dc896-2375-4cb4-9bed-35f1f738e58f","type":"api","target_id":"94d87111-34b0-4f2c-b3f5-0ef8a7382272","request":{"parent_id":"0","target_id":"94d87111-34b0-4f2c-b3f5-0ef8a7382272","name":"更新文章","method":"PUT","url":"http://127.0.0.1:9000/posts/2","request":{"url":"http://127.0.0.1:9000/posts/2","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"title\": \"Updated Post1\",\r\n    \"content\": \"This post has been updated\"\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"response":{"status":"success","message":"success","data":{"request":{"url":"http://127.0.0.1:9000/posts/2","uri":{"slashes":true,"protocol":"http:","hash":"","query":"","pathname":"/posts/2","auth":"","host":"127.0.0.1:9000","port":"9000","hostname":"127.0.0.1","password":"","username":"","origin":"http://127.0.0.1:9000","href":"http://127.0.0.1:9000/posts/2"},"method":"PUT","timeout":0,"contentType":"application/json","header":[{"key":"User-Agent","value":"PostmanRuntime-ApipostRuntime/1.1.0"},{"key":"Cache-Control","value":"no-cache"},{"key":"content-type","value":"application/json"},{"key":"Authorization","value":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},{"key":"Accept-Encoding","value":"gzip, deflate, br"},{"key":"Content-Length","value":80}],"proxy":null,"request_headers":{"User-Agent":"PostmanRuntime-ApipostRuntime/1.1.0","Cache-Control":"no-cache","content-type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE","Accept-Encoding":"gzip, deflate, br","Content-Length":80},"request_bodys":"{\r\n    \"title\": \"Updated Post1\",\r\n    \"content\": \"This post has been updated\"\r\n}","body":{"mode":"raw","raw":"{\r\n    \"title\": \"Updated Post1\",\r\n    \"content\": \"This post has been updated\"\r\n}","options":{"raw":{"language":"json"}}}},"response":{"target_id":"94d87111-34b0-4f2c-b3f5-0ef8a7382272","responseTime":5,"responseSize":0.03,"resposneAt":"16:01:18","netWork":{"agent":"Desktop-Agent","address":{"local":{"address":"127.0.0.1","port":64541},"remote":{"address":"127.0.0.1","family":"IPv4","port":9000}}},"status":"Not Found","code":404,"timingPhases":{"wait":1.7580000003799796,"dns":0,"tcp":1.0076999999582767,"firstByte":1.7395999999716878,"download":0.25469999946653843,"total":4.759999999776483},"headers":{"Content-Type":"application/json; charset=utf-8","Date":"Wed, 18 Jun 2025 08:01:18 GMT","Content-Length":"26","Connection":"close"},"fitForShow":"Monaco","resMime":{"ext":"json","mime":"application/json"},"stream":{"type":"Buffer","data":[120,156,171,86,74,45,42,202,47,82,178,82,42,200,47,46,81,200,203,47,81,72,203,47,205,75,81,170,5,0,124,240,9,88]},"filename":"response_94d87111-34b0-4f2c-b3f5-0ef8a7382272.json"}}},"http_error":-1,"assert":[],"datetime":"2025-06-18 16:01:18","assert_error":-1},{"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","parent_id":"0","event_id":"b87bf20e-7a66-43da-bb59-e99d5905acf4","iteration_id":"52829e64-f603-425c-ae30-ccdecbc9185c","type":"api","target_id":"c5d67173-2d26-4712-9bcb-f8a702ac914b","request":{"parent_id":"0","target_id":"c5d67173-2d26-4712-9bcb-f8a702ac914b","name":"删除文章","method":"DELETE","url":"http://127.0.0.1:9000/posts/2","request":{"url":"http://127.0.0.1:9000/posts/2","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"response":{"status":"success","message":"success","data":{"request":{"url":"http://127.0.0.1:9000/posts/2","uri":{"slashes":true,"protocol":"http:","hash":"","query":"","pathname":"/posts/2","auth":"","host":"127.0.0.1:9000","port":"9000","hostname":"127.0.0.1","password":"","username":"","origin":"http://127.0.0.1:9000","href":"http://127.0.0.1:9000/posts/2"},"method":"DELETE","timeout":0,"contentType":"application/json","header":[{"key":"User-Agent","value":"PostmanRuntime-ApipostRuntime/1.1.0"},{"key":"Cache-Control","value":"no-cache"},{"key":"content-type","value":"application/json"},{"key":"Authorization","value":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},{"key":"Accept-Encoding","value":"gzip, deflate, br"}],"proxy":null,"request_headers":{"User-Agent":"PostmanRuntime-ApipostRuntime/1.1.0","Cache-Control":"no-cache","content-type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE","Accept-Encoding":"gzip, deflate, br"},"request_bodys":"","body":{"mode":"raw","raw":"","options":{"raw":{"language":"json"}}}},"response":{"target_id":"c5d67173-2d26-4712-9bcb-f8a702ac914b","responseTime":4,"responseSize":0.03,"resposneAt":"16:01:18","netWork":{"agent":"Desktop-Agent","address":{"local":{"address":"127.0.0.1","port":64542},"remote":{"address":"127.0.0.1","family":"IPv4","port":9000}}},"status":"Not Found","code":404,"timingPhases":{"wait":0.5895999995991588,"dns":0,"tcp":0.5157000003382564,"firstByte":2.4560000002384186,"download":0.4824999999254942,"total":4.043800000101328},"headers":{"Content-Type":"application/json; charset=utf-8","Date":"Wed, 18 Jun 2025 08:01:18 GMT","Content-Length":"26","Connection":"close"},"fitForShow":"Monaco","resMime":{"ext":"json","mime":"application/json"},"stream":{"type":"Buffer","data":[120,156,171,86,74,45,42,202,47,82,178,82,42,200,47,46,81,200,203,47,81,72,203,47,205,75,81,170,5,0,124,240,9,88]},"filename":"response_c5d67173-2d26-4712-9bcb-f8a702ac914b.json"}}},"http_error":-1,"assert":[],"datetime":"2025-06-18 16:01:18","assert_error":-1},{"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","parent_id":"0","event_id":"05969941-f2a5-4652-ba20-92c3a294809c","iteration_id":"428d0cc4-e7b1-469c-8224-8a8ae59f48a8","type":"api","target_id":"56ee0b44-01d8-41a8-9ec4-ff9b759b5266","request":{"parent_id":"0","target_id":"56ee0b44-01d8-41a8-9ec4-ff9b759b5266","name":"获取文章评论","method":"GET","url":"http://127.0.0.1:9000/comments/post/1","request":{"url":"http://127.0.0.1:9000/comments/post/1","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"response":{"status":"success","message":"success","data":{"request":{"url":"http://127.0.0.1:9000/comments/post/1","uri":{"slashes":true,"protocol":"http:","hash":"","query":"","pathname":"/comments/post/1","auth":"","host":"127.0.0.1:9000","port":"9000","hostname":"127.0.0.1","password":"","username":"","origin":"http://127.0.0.1:9000","href":"http://127.0.0.1:9000/comments/post/1"},"method":"GET","timeout":0,"contentType":"application/json","header":[{"key":"User-Agent","value":"PostmanRuntime-ApipostRuntime/1.1.0"},{"key":"Cache-Control","value":"no-cache"},{"key":"content-type","value":"application/json"},{"key":"Authorization","value":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},{"key":"Accept-Encoding","value":"gzip, deflate, br"}],"proxy":null,"request_headers":{"User-Agent":"PostmanRuntime-ApipostRuntime/1.1.0","Cache-Control":"no-cache","content-type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE","Accept-Encoding":"gzip, deflate, br"},"request_bodys":"","body":{"mode":"raw","raw":"","options":{"raw":{"language":"json"}}}},"response":{"target_id":"56ee0b44-01d8-41a8-9ec4-ff9b759b5266","responseTime":7,"responseSize":1.18,"resposneAt":"16:01:18","netWork":{"agent":"Desktop-Agent","address":{"local":{"address":"127.0.0.1","port":64543},"remote":{"address":"127.0.0.1","family":"IPv4","port":9000}}},"status":"OK","code":200,"timingPhases":{"wait":0.544199999421835,"dns":0,"tcp":0.3963000001385808,"firstByte":5.203900000080466,"download":0.579900000244379,"total":6.724299999885261},"headers":{"Content-Type":"application/json; charset=utf-8","Date":"Wed, 18 Jun 2025 08:01:18 GMT","Content-Length":"1205","Connection":"close"},"fitForShow":"Monaco","resMime":{"ext":"json","mime":"application/json"},"stream":{"type":"Buffer","data":[120,156,221,146,189,10,194,48,20,70,95,69,239,106,26,210,164,183,38,119,242,9,156,220,68,36,180,119,40,216,31,108,4,65,124,119,91,235,226,15,182,115,183,16,14,249,14,135,236,111,80,228,64,177,128,236,204,62,112,126,244,1,8,180,210,24,169,52,138,237,46,70,74,28,105,43,13,154,149,178,164,20,8,184,52,249,116,56,171,171,192,85,79,110,139,140,23,77,221,134,101,255,70,203,231,227,107,188,63,3,141,187,36,164,145,84,42,157,193,113,151,159,112,55,84,249,146,59,52,112,27,158,187,2,184,244,197,233,117,181,225,171,47,155,19,203,172,46,225,46,160,215,29,52,239,98,16,52,99,177,18,148,78,79,141,245,1,207,45,86,50,26,107,45,21,218,169,177,222,225,185,197,194,191,177,80,19,26,105,221,164,159,245,13,207,38,214,225,1,99,165,77,221]},"filename":"response_56ee0b44-01d8-41a8-9ec4-ff9b759b5266.json"}}},"http_error":-1,"assert":[],"datetime":"2025-06-18 16:01:18","assert_error":-1},{"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","parent_id":"0","event_id":"04694175-b461-4d63-bdab-717dd7f80352","iteration_id":"82e0997b-4875-4902-bf28-dab0c72bebb5","type":"api","target_id":"e6a9dcce-2f72-464d-82b6-e76066983288","request":{"parent_id":"0","target_id":"e6a9dcce-2f72-464d-82b6-e76066983288","name":"创建评论","method":"POST","url":"http://127.0.0.1:9000/comments","request":{"url":"http://127.0.0.1:9000/comments","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"content\": \"Nice post!\",\r\n    \"post_id\": 2\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"response":{"status":"success","message":"success","data":{"request":{"url":"http://127.0.0.1:9000/comments","uri":{"slashes":true,"protocol":"http:","hash":"","query":"","pathname":"/comments","auth":"","host":"127.0.0.1:9000","port":"9000","hostname":"127.0.0.1","password":"","username":"","origin":"http://127.0.0.1:9000","href":"http://127.0.0.1:9000/comments"},"method":"POST","timeout":0,"contentType":"application/json","header":[{"key":"User-Agent","value":"PostmanRuntime-ApipostRuntime/1.1.0"},{"key":"Cache-Control","value":"no-cache"},{"key":"content-type","value":"application/json"},{"key":"Authorization","value":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},{"key":"Accept-Encoding","value":"gzip, deflate, br"},{"key":"Content-Length","value":52}],"proxy":null,"request_headers":{"User-Agent":"PostmanRuntime-ApipostRuntime/1.1.0","Cache-Control":"no-cache","content-type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE","Accept-Encoding":"gzip, deflate, br","Content-Length":52},"request_bodys":"{\r\n    \"content\": \"Nice post!\",\r\n    \"post_id\": 2\r\n}","body":{"mode":"raw","raw":"{\r\n    \"content\": \"Nice post!\",\r\n    \"post_id\": 2\r\n}","options":{"raw":{"language":"json"}}}},"response":{"target_id":"e6a9dcce-2f72-464d-82b6-e76066983288","responseTime":5,"responseSize":0.03,"resposneAt":"16:01:18","netWork":{"agent":"Desktop-Agent","address":{"local":{"address":"127.0.0.1","port":64544},"remote":{"address":"127.0.0.1","family":"IPv4","port":9000}}},"status":"Not Found","code":404,"timingPhases":{"wait":1.9274999992921948,"dns":0,"tcp":0.8031000001356006,"firstByte":1.7256000004708767,"download":0.2511999998241663,"total":4.707399999722838},"headers":{"Content-Type":"application/json; charset=utf-8","Date":"Wed, 18 Jun 2025 08:01:18 GMT","Content-Length":"26","Connection":"close"},"fitForShow":"Monaco","resMime":{"ext":"json","mime":"application/json"},"stream":{"type":"Buffer","data":[120,156,171,86,74,45,42,202,47,82,178,82,42,200,47,46,81,200,203,47,81,72,203,47,205,75,81,170,5,0,124,240,9,88]},"filename":"response_e6a9dcce-2f72-464d-82b6-e76066983288.json"}}},"http_error":-1,"assert":[],"datetime":"2025-06-18 16:01:18","assert_error":-1},{"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","parent_id":"0","event_id":"ffb04a62-13dc-4280-9147-8c0d87b0a64a","iteration_id":"0d8cce8c-824a-42ed-afe1-93f88191b279","type":"api","target_id":"d1337a3c-8f4c-4788-9599-4c2d6b5c8b04","request":{"parent_id":"0","target_id":"d1337a3c-8f4c-4788-9599-4c2d6b5c8b04","name":"删除评论","method":"DELETE","url":"http://127.0.0.1:9000/comments/2","request":{"url":"http://127.0.0.1:9000/comments/2","description":"","auth":{"type":"bearer","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"content\": \"Nice post!\",\r\n    \"post_id\": 2\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"response":{"status":"success","message":"success","data":{"request":{"url":"http://127.0.0.1:9000/comments/2","uri":{"slashes":true,"protocol":"http:","hash":"","query":"","pathname":"/comments/2","auth":"","host":"127.0.0.1:9000","port":"9000","hostname":"127.0.0.1","password":"","username":"","origin":"http://127.0.0.1:9000","href":"http://127.0.0.1:9000/comments/2"},"method":"DELETE","timeout":0,"contentType":"application/json","header":[{"key":"User-Agent","value":"PostmanRuntime-ApipostRuntime/1.1.0"},{"key":"Cache-Control","value":"no-cache"},{"key":"content-type","value":"application/json"},{"key":"Authorization","value":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE"},{"key":"Accept-Encoding","value":"gzip, deflate, br"},{"key":"Content-Length","value":52}],"proxy":null,"request_headers":{"User-Agent":"PostmanRuntime-ApipostRuntime/1.1.0","Cache-Control":"no-cache","content-type":"application/json","Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg3MDksInVzZXJfaWQiOjF9.sP9Z7MIL4_XJVES6NJIqax5vq46PQTZWBFkFM_ZiKBE","Accept-Encoding":"gzip, deflate, br","Content-Length":52},"request_bodys":"{\r\n    \"content\": \"Nice post!\",\r\n    \"post_id\": 2\r\n}","body":{"mode":"raw","raw":"{\r\n    \"content\": \"Nice post!\",\r\n    \"post_id\": 2\r\n}","options":{"raw":{"language":"json"}}}},"response":{"target_id":"d1337a3c-8f4c-4788-9599-4c2d6b5c8b04","responseTime":4,"responseSize":0.03,"resposneAt":"16:01:18","netWork":{"agent":"Desktop-Agent","address":{"local":{"address":"127.0.0.1","port":64545},"remote":{"address":"127.0.0.1","family":"IPv4","port":9000}}},"status":"Not Found","code":404,"timingPhases":{"wait":0.9718000004068017,"dns":0,"tcp":0.3977999994531274,"firstByte":2.659800000488758,"download":0.28139999974519014,"total":4.310800000093877},"headers":{"Content-Type":"application/json; charset=utf-8","Date":"Wed, 18 Jun 2025 08:01:18 GMT","Content-Length":"29","Connection":"close"},"fitForShow":"Monaco","resMime":{"ext":"json","mime":"application/json"},"stream":{"type":"Buffer","data":[120,156,171,86,74,45,42,202,47,82,178,82,74,206,207,205,77,205,43,81,200,203,47,81,72,203,47,205,75,81,170,5,0,156,26,10,133]},"filename":"response_d1337a3c-8f4c-4788-9599-4c2d6b5c8b04.json"}}},"http_error":-1,"assert":[],"datetime":"2025-06-18 16:01:18","assert_error":-1},{"test_id":"3ddcc015-522d-4097-917e-e16748b49f45","report_id":"7a4a4fbe-cc8d-40e6-a031-6353afd75d88","parent_id":"0","event_id":"2ef74a14-a10b-499d-88e6-22eb3da17deb","iteration_id":"90ed964f-0089-47b7-bf30-195637a31734","type":"api","target_id":"119b0d1b-91d4-41ec-962b-8bdbe23150e3","request":{"parent_id":"0","target_id":"119b0d1b-91d4-41ec-962b-8bdbe23150e3","name":"注册","method":"POST","url":"http://127.0.0.1:9000/auth/register","request":{"url":"http://127.0.0.1:9000/auth/register","description":"","auth":{"type":"noauth","kv":{"key":"","value":""},"bearer":{"key":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3NTAzMTg2MjUsInVzZXJfaWQiOjF9.NnvARrL0B_yShWsgRL_MEC5mosN3MUBtOGD0XxsGuzo"},"basic":{"username":"","password":""},"digest":{"username":"","password":"","realm":"","nonce":"","algorithm":"","qop":"","nc":"","cnonce":"","opaque":""},"hawk":{"authId":"","authKey":"","algorithm":"","user":"","nonce":"","extraData":"","app":"","delegation":"","timestamp":"","includePayloadHash":-1},"awsv4":{"accessKey":"","secretKey":"","region":"","service":"","sessionToken":"","addAuthDataToQuery":-1},"ntlm":{"username":"","password":"","domain":"","workstation":"","disableRetryRequest":1},"edgegrid":{"accessToken":"","clientToken":"","clientSecret":"","nonce":"","timestamp":"","baseURi":"","headersToSign":""},"oauth1":{"consumerKey":"","consumerSecret":"","signatureMethod":"","addEmptyParamsToSign":-1,"includeBodyHash":-1,"addParamsToHeader":-1,"realm":"","version":"1.0","nonce":"","timestamp":"","verifier":"","callback":"","tokenSecret":"","token":""}},"body":{"mode":"json","parameter":[],"raw":"{\r\n    \"username\": \"testuser1\",\r\n    \"password\": \"testpassword1\",\r\n    \"email\": \"test1@example.com\"\r\n}","raw_para":[],"raw_schema":{"type":"object"}},"event":{"pre_script":"","test":""},"header":{"parameter":[]},"query":{"parameter":[]},"cookie":{"parameter":[]},"resful":{"parameter":[]}}},"response":{"status":"success","message":"success","data":{"request":{"url":"http://127.0.0.1:9000/auth/register","uri":{"slashes":true,"protocol":"http:","hash":"","query":"","pathname":"/auth/register","auth":"","host":"127.0.0.1:9000","port":"9000","hostname":"127.0.0.1","password":"","username":"","origin":"http://127.0.0.1:9000","href":"http://127.0.0.1:9000/auth/register"},"method":"POST","timeout":0,"contentType":"application/json","header":[{"key":"User-Agent","value":"PostmanRuntime-ApipostRuntime/1.1.0"},{"key":"Cache-Control","value":"no-cache"},{"key":"content-type","value":"application/json"},{"key":"Accept-Encoding","value":"gzip, deflate, br"},{"key":"Content-Length","value":102}],"proxy":null,"request_headers":{"User-Agent":"PostmanRuntime-ApipostRuntime/1.1.0","Cache-Control":"no-cache","content-type":"application/json","Accept-Encoding":"gzip, deflate, br","Content-Length":102},"request_bodys":"{\r\n    \"username\": \"testuser1\",\r\n    \"password\": \"testpassword1\",\r\n    \"email\": \"test1@example.com\"\r\n}","body":{"mode":"raw","raw":"{\r\n    \"username\": \"testuser1\",\r\n    \"password\": \"testpassword1\",\r\n    \"email\": \"test1@example.com\"\r\n}","options":{"raw":{"language":"json"}}}},"response":{"target_id":"119b0d1b-91d4-41ec-962b-8bdbe23150e3","responseTime":3,"responseSize":0.03,"resposneAt":"16:01:18","netWork":{"agent":"Desktop-Agent","address":{"local":{"address":"127.0.0.1","port":64546},"remote":{"address":"127.0.0.1","family":"IPv4","port":9000}}},"status":"Bad Request","code":400,"timingPhases":{"wait":1.2247000001370907,"dns":0,"tcp":0.4715999998152256,"firstByte":1.5511000007390976,"download":0.1711999997496605,"total":3.4186000004410744},"headers":{"Content-Type":"application/json; charset=utf-8","Date":"Wed, 18 Jun 2025 08:01:18 GMT","Content-Length":"35","Connection":"close"},"fitForShow":"Monaco","resMime":{"ext":"json","mime":"application/json"},"stream":{"type":"Buffer","data":[120,156,171,86,74,45,42,202,47,82,178,82,42,45,78,45,202,75,204,77,85,72,204,41,74,77,76,169,84,72,173,200,44,46,41,86,170,5,0,230,66,13,7]},"filename":"response_119b0d1b-91d4-41ec-962b-8bdbe23150e3.json"}}},"http_error":-1,"assert":[],"datetime":"2025-06-18 16:01:18","assert_error":-1}]};
+        console.log(data, 'data')
+
+        document.title = data?.report_name || '';
+        const _docContentHtml = template('tpl', {
+          value: data,
+        });
+        const oWrap = document.querySelector('.apipost-report-wrap');
+        oWrap.innerHTML = _docContentHtml;
+  
+        (() => {
+          const oApp = document.querySelector('#app'),
+            oTestReport = oApp.querySelector('.apipost-report-wrap'),
+            oActionWrap = oTestReport.querySelector('.action-wrap'),
+            oTestDetailFailed = oActionWrap.querySelector('.test-detail.failed'),
+            oTestDetailSuccess = oActionWrap.querySelector('.test-detail.success');
+          
+          const oTestDetails = document.querySelectorAll('.test-detail');
+          let curIndex = 0;
+  
+          const init = () => {
+            bindEvent();
+            initPie();
+          };
+  
+          function bindEvent() {
+            Array.from(oTestDetails).forEach(item => {
+              item.addEventListener('click', handleToggle.bind(null, item), false)
+            })
+          }
+  
+          function handleToggle(detailWrap, e) {
+            const clickClassName = e.target.className;
+            const oTestList = detailWrap.querySelector('.test-event-list');
+  
+            if (oTestList && ['title', 'toggle-arrow', 'arrow'].includes(clickClassName)) {
+              const className = oTestList.className;
+              if (className.includes('show')) {
+                oTestList.className = 'test-event-list hide';
+              } else {
+                oTestList.className = 'test-event-list show';
+              }
+            }
+          }
+  
+          const computedInfo = (info) => {
+            if (info?.passed == 0 && info?.failure == 0) {
+              return [{ value: info?.passed, name: '接口通过率' }];
+            }
+            return [
+              { value: info?.passed, name: '接口通过率' },
+              { value: info?.failure, name: '接口失败率' },
+            ];
+          };
+  
+          const getOption = (info, color) => {
+            return {
+              color: color || ['#26CEA4', 'red'],
+              series: [
+                {
+                  name: 'Access From',
+                  type: 'pie',
+                  radius: ['50%', '80%'],
+                  avoidLabelOverlap: false,
+                  label: {
+                    show: false,
+                    position: 'center',
+                  },
+                  emphasis: {
+                    label: {
+                      show: true,
+                      fontSize: 5,
+                    },
+                  },
+                  labelLine: {
+                    show: false,
+                  },
+                  data: computedInfo(info),
+                },
+              ],
+            };
+          };
+          function initPie() {
+            const apiPieWrap = document.querySelector('#api-pie');
+            const assertPieWrap = document.querySelector('#assert-pie');
+  
+            if (apiPieWrap) {
+              const pie = echarts.init(apiPieWrap);
+              const options = getOption(
+                {
+                  passed: data?.http?.passed,
+                  failure: data?.http?.failure,
+                },
+                ['#26CEA4', '#E45252']
+              );
+              pie && pie.setOption(options);
+            }
+            if (assertPieWrap) {
+              const pie = echarts.init(assertPieWrap);
+              const options = getOption(
+                {
+                  passed: data?.assert?.passed,
+                  failure: data?.assert?.failure,
+                },
+                ['#26CEA4', '#E45252']
+              );
+              pie && pie.setOption(options);
+            }
+          }
+  
+          init();
+        })();
+      </script>
+    </body>
+  </html>
+  
